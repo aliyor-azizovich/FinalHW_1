@@ -1,27 +1,48 @@
-﻿int[] arr = new int[10]; // создаем массив из 10 элементов
-Random rand = new Random(); // создаем объект класса Random
-
-for (int i = 0; i < arr.Length; i++)
+﻿class Program
 {
-    arr[i] = rand.Next(100, 1000); // заполняем элементы массива случайными трехзначными числами
-}
-Console.WriteLine(arr);
-// преобразуем массив в строку в виде массива и выводим его на консоль
-string arrStr = "[" + string.Join(", ", arr) + "]";
+    static void Main(string[] args)
+    {
+        Console.Write("Введите элементы массива через запятую: ");
+        string input = Console.ReadLine();
 
-// Выводим на экран массив
-Console.WriteLine(arrStr); 
+        string[] array = input.Split(", ");
 
-// Количество чётных элементов
-int z = 0; 
-// Проходимся по массиву в поисках чётных элементов и при нахождении таковых увеличиваем z на 1
-for (int x = 0; x < arr.Length; x++)
-{
-        if (arr[x] % 2  == 0)
+        string[] newArray = FilterArray(array);
+
+        Console.WriteLine("Новый массив:");
+        PrintArray(newArray);
+    }
+
+    static string[] FilterArray(string[] arr)
+    {
+        int count = 0;
+        for (int i = 0; i < arr.Length; i++)
         {
-                z = z+1;
+            if (arr[i].Length <= 3)
+            {
+                count++;
+            }
         }
 
-}
+        string[] filteredArray = new string[count];
+        int index = 0;
+        for (int i = 0; i < arr.Length; i++)
+        {
+            if (arr[i].Length <= 3)
+            {
+                filteredArray[index] = arr[i];
+                index++;
+            }
+        }
 
-Console.WriteLine(z);
+        return filteredArray;
+    }
+
+    static void PrintArray(string[] arr)
+    {
+        for (int i = 0; i < arr.Length; i++)
+        {
+            Console.WriteLine(arr[i]);
+        }
+    }
+}
